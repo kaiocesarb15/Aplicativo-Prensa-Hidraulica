@@ -27,47 +27,80 @@ def main(page: ft.Page):
     theme = ft.Switch(label="Light mode", on_change=theme_changed)
 
     #valor inicial das forças
-    f1 = 200 
+    global f1 
+    global f2
+    f1 = 200
     f2 = 2000
     
     #atualiza a página e o valor da intensidade das forças  e as dimensões do objeto
     def atualizar(emb1, emb2, f1, f2):
-        result.value=f"""Área de p1: {emb1.width/5}cm²      F1: {f1}N
-        \nÁrea de p2: {emb2.width/2}cm²      F2: {f2}N"""
+        result.value=f"""Área (1): {emb1.width/5}cm²      F1: {f1}N
+        \nÁrea (2): {emb2.width/2}cm²      F2: {f2}N"""
         result.update()
         page.update()
 
     #altera a área 1 (a da direita)
     def slider_p_a1(e):
         emb1.width = int(e.control.value) * 5
-        atualizar(emb1, emb2, f1, f2)
+        F1 = f1
+        F2 = f2 
+        if choose_variable.value == "Área 2":
+            emb2.width = (F2 * (emb1.width/5) / F1) * 2
+            cano.left=emb2.width-75
+            emb1.left = emb2.width + 70
+        elif choose_variable.value == "Força 1":
+            F1 = F2 * (emb1.width/5) / (emb2.width/2)
+        elif choose_variable.value == "Força 2":
+            F2 = F1 * (emb2.width/2) / (emb1.width/5)
+        atualizar(emb1, emb2, F1, F2)
 
     #altera a área 2 (a da esquerda)
     def slider_p_a2(e):
         emb2.width = int(e.control.value) * 2
-        emb1.left = emb2.width + 60
         cano.left = emb2.width-75
-        atualizar(emb1, emb2, f1, f2)
+        emb1.left = emb2.width + 60
+        F1 = f1
+        F2 = f2 
+        if choose_variable.value == "Área 1":
+            emb1.width = (F1 * (emb2.width/2) / F2) * 5
+        elif choose_variable.value == "Força 1":
+            F1 = F2 * (emb1.width/5) / (emb2.width/2)
+        elif choose_variable.value == "Força 2":
+            F2 = F1 * (emb2.width/2) / (emb1.width/5)
+
+        atualizar(emb1, emb2, F1, F2)
 
     #função que mexe com a força 1 (atua na direita)
     def slider_p_f1(e):
         f1 = int(e.control.value)
-        f2 = (emb2.width / 2) * f1 / (emb1.width / 5)
-        atualizar(emb1, emb2, f1, f2)
+        F1 = f1
+        F2 = f2 
+        if choose_variable.value == "Área 1":
+            emb1.width = (F1 * (emb2.width/2) / F2) * 5
+        elif choose_variable.value == "Área 2":
+            emb2.width = (F2 * (emb1.width/5) / F1) * 2
+            cano.left=emb2.width-75
+            emb1.left = emb2.width + 70
+        elif choose_variable.value == "Força 2":
+            F2 = F1 * (emb2.width/2) / (emb1.width/5)
+        
+        atualizar(emb1, emb2, F1, F2)
 
     #função que mexe com a força 2 (atua na esquerda)
     def slider_p_f2(e):
         f2 = int(e.control.value)
-        f1 = (emb1.width / 5) * f2 / (emb2.width / 2)
-        atualizar(emb1, emb2, f1, f2)
-
-    #informações dos sliders
-    sliders = [
-        {"nome": "Área do êmbolo 1", "min": 4,"max": 20, "div": 17, "value": 10, "on_change": slider_p_a1},
-        {"nome": "Área do êmbolo 2", "min": 30,"max": 150, "div": 120, "value": 100, "on_change": slider_p_a2},
-        {"nome": "Intensidade da força 1", "min": 100,"max": 300, "div": 200, "value": 200, "on_change": slider_p_f1},
-        {"nome": "Intensidade da força 2", "min": 1000,"max": 3000, "div": 500, "value": 2000, "on_change": slider_p_f2}
-    ]
+        F1 = f1
+        F2 = f2
+        if choose_variable.value == "Área 1":
+            emb1.width = (F1 * (emb2.width/2) / F2) * 5
+        elif choose_variable.value == "Área 2":
+            emb2.width = (F2 * (emb1.width/5) / F1) * 2
+            cano.left = emb2.width-75
+            emb1.left = emb2.width + 70
+        elif choose_variable.value == "Força 1":
+            F1 = F2 * (emb1.width/5) / (emb2.width/2)
+        
+        atualizar(emb1, emb2, F1, f2)
 
     #cria a coluna da esquerda
     emb2 = ft.Container(
@@ -102,8 +135,16 @@ def main(page: ft.Page):
     )
 
     #diz a intensidade das forças e as dimensões do objeto
-    result = ft.Text(value=f"""Área de p1: {emb1.width/5}cm²{" "*10}F1: {f1}N
-        \nÁrea de p2: {emb2.width/2}cm²{" "*9}F2: {f2}N""", color=ft.colors.BLACK, size=15)
+    result = ft.Text(value=f"""Área (1): {emb1.width/5}cm²{" "*10}F1: {f1}N
+        \nÁrea (2): {emb2.width/2}cm²{" "*9}F2: {f2}N""", color=ft.colors.BLACK, size=15)
+
+    #informações dos sliders
+    sliders = [
+        {"nome": "Área do êmbolo 1", "min": 4,"max": 15, "div": 100, "value": 10, "on_change": slider_p_a1},
+        {"nome": "Área do êmbolo 2", "min": 40,"max": 150, "div": 110, "value": 100, "on_change": slider_p_a2},
+        {"nome": "Intensidade da força 1", "min": 100,"max": 300, "div": 200, "value": 200, "on_change": slider_p_f1},
+        {"nome": "Intensidade da força 2", "min": 1000,"max": 3000, "div": 500, "value": 2000, "on_change": slider_p_f2}
+    ]
 
     #criando os sliders
     slider = [ft.Slider(
@@ -112,7 +153,7 @@ def main(page: ft.Page):
         divisions=slider["div"],            #divisões
         value=slider["value"],              #valor inicial
         label="{value}",                    #valor que aparece na bolinha
-        on_change=slider["on_change"],  
+        on_change=slider["on_change"],
     ) for slider in sliders]
 
     #variável que exibe os slides com suas descrições
@@ -144,6 +185,7 @@ def main(page: ft.Page):
         atualizar(emb1, emb2, f1, f2)
 
     reiniciar_bottom = ft.ElevatedButton("Reiniciar experimento", on_click=reiniciar)
+    
     choose_variable = ft.Dropdown(
             label="Variável",
             hint_text="O que irá variar?",
