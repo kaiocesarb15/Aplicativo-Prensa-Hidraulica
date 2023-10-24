@@ -1,5 +1,4 @@
-import flet
-from flet import AppBar, ElevatedButton, Page, Text, View, colors
+from flet import *
 
 
 def main(page: Page):
@@ -13,6 +12,7 @@ def main(page: Page):
                 [
                     AppBar(title=Text("Pagina Inicial"), bgcolor=colors.SURFACE_VARIANT),
                     ElevatedButton("Problemas", on_click=lambda _: page.go("/problemas")),
+                    ElevatedButton("Sei lá", on_click=lambda _: page.go("/seila"))
                 ],
             )
         )
@@ -23,9 +23,24 @@ def main(page: Page):
                     [
                         AppBar(title=Text("Problemas"), bgcolor=colors.SURFACE_VARIANT),
                         #ElevatedButton("Go Home", on_click=lambda _: page.go("/")),
+
+                        # Prensa.py in here
                     ],
                 )
             )
+        if page.route == "/seila":
+            page.views.append(
+                View(
+                    "/seila",
+                    [
+                        AppBar(title=Text("Sei lá"), bgcolor=colors.SURFACE_VARIANT),
+                        #ElevatedButton("Go Home", on_click=lambda _: page.go("/")),
+
+                        # Prensa.py in here
+                    ],
+                )
+            )
+            
         page.update()
 
     def view_pop(e):
@@ -38,5 +53,4 @@ def main(page: Page):
 
     page.go(page.route)
 
-
-flet.app(main)
+app(main)
