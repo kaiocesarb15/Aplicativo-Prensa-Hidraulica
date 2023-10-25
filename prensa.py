@@ -32,7 +32,7 @@ def main(page: ft.Page):
     f1 = 200
     f2 = 2000
     
-    #atualiza a página e o valor da intensidade das forças  e as dimensões do objeto
+    #atualiza a página e o valor da intensidade das forças e as dimensões do objeto
     def atualizar(emb1, emb2, f1, f2):
         result.value=f"""Área (1): {emb1.width/5}cm²      F1: {f1}N
         \nÁrea (2): {emb2.width/2}cm²      F2: {f2}N"""
