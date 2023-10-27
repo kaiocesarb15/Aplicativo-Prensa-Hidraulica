@@ -30,10 +30,10 @@ def main(page: ft.Page):
             ft.dropdown.Option("Força no embolo 2")],
     )
 
-    a1 = ft.TextField(label="Área do embolo 1", width=330)
-    a2 = ft.TextField(label="Área do embolo 2", width=330)
-    f1 = ft.TextField(label="Força no embolo 1", width=330)
-    f2 = ft.TextField(label="Força no embolo 2", width=326)
+    a1 = ft.TextField(label="Área do embolo 1", width=290)
+    a2 = ft.TextField(label="Área do embolo 2", width=290)
+    f1 = ft.TextField(label="Força no embolo 1", width=290)
+    f2 = ft.TextField(label="Força no embolo 2", width=290)
     display = ft.Column()
 
     a1.disabled = True
@@ -107,6 +107,106 @@ def main(page: ft.Page):
     addVariavel_bt = ft.ElevatedButton("Adicionar Variável", on_click=addVariavel)
     addValores_bt = ft.ElevatedButton("Calcular", on_click=calcular)
 
+    #função que muda a tela 
+    def mudaTela(e):
+        #"/" é a tela inicial
+        if page.route == "/":
+            if e.control.selected_index == 1:
+                page.go("/store")
+            elif e.control.selected_index == 2:
+                page.go("/settings")
+        elif page.route == "/store":
+            if e.control.selected_index == 0:
+                page.go("/")
+            elif e.control.selected_index == 2:
+                page.go("/settings")
+        elif page.route == "/settings":
+            if e.control.selected_index == 0:
+                page.go("/")
+            elif e.control.selected_index == 1:
+                page.go("/store")
+        rail.selected_index = 0
+        rail2.selected_index = 1
+        rail3.selected_index = 2
+
+    rail = ft.NavigationRail(
+        selected_index=0,
+        label_type=ft.NavigationRailLabelType.ALL,
+        # extended=True,
+        min_width=100,
+        min_extended_width=400,
+        leading=ft.FloatingActionButton(icon=ft.icons.CREATE, text="Add"),
+        group_alignment=-0.9,
+        destinations=[
+            ft.NavigationRailDestination(
+                icon=ft.icons.FAVORITE_BORDER, selected_icon=ft.icons.FAVORITE, label="First"
+            ),
+            ft.NavigationRailDestination(
+                icon_content=ft.Icon(ft.icons.BOOKMARK_BORDER),
+                selected_icon_content=ft.Icon(ft.icons.BOOKMARK),
+                label="Second",
+            ),
+            ft.NavigationRailDestination(
+                icon=ft.icons.SETTINGS_OUTLINED,
+                selected_icon_content=ft.Icon(ft.icons.SETTINGS),
+                label_content=ft.Text("Settings"),
+            ),
+        ],
+        on_change=mudaTela
+    )
+
+    rail2 = ft.NavigationRail(
+        selected_index=1,
+        label_type=ft.NavigationRailLabelType.ALL,
+        # extended=True,
+        min_width=100,
+        min_extended_width=400,
+        leading=ft.FloatingActionButton(icon=ft.icons.CREATE, text="Add"),
+        group_alignment=-0.9,
+        destinations=[
+            ft.NavigationRailDestination(
+                icon=ft.icons.FAVORITE_BORDER, selected_icon=ft.icons.FAVORITE, label="First"
+            ),
+            ft.NavigationRailDestination(
+                icon_content=ft.Icon(ft.icons.BOOKMARK_BORDER),
+                selected_icon_content=ft.Icon(ft.icons.BOOKMARK),
+                label="Second",
+            ),
+            ft.NavigationRailDestination(
+                icon=ft.icons.SETTINGS_OUTLINED,
+                selected_icon_content=ft.Icon(ft.icons.SETTINGS),
+                label_content=ft.Text("Settings"),
+            ),
+        ],
+        on_change=mudaTela
+    )
+
+    rail3 = ft.NavigationRail(
+        selected_index=1,
+        label_type=ft.NavigationRailLabelType.ALL,
+        # extended=True,
+        min_width=100,
+        min_extended_width=400,
+        leading=ft.FloatingActionButton(icon=ft.icons.CREATE, text="Add"),
+        group_alignment=-0.9,
+        destinations=[
+            ft.NavigationRailDestination(
+                icon=ft.icons.FAVORITE_BORDER, selected_icon=ft.icons.FAVORITE, label="First"
+            ),
+            ft.NavigationRailDestination(
+                icon_content=ft.Icon(ft.icons.BOOKMARK_BORDER),
+                selected_icon_content=ft.Icon(ft.icons.BOOKMARK),
+                label="Second",
+            ),
+            ft.NavigationRailDestination(
+                icon=ft.icons.SETTINGS_OUTLINED,
+                selected_icon_content=ft.Icon(ft.icons.SETTINGS),
+                label_content=ft.Text("Settings"),
+            ),
+        ],
+        on_change=mudaTela
+    )
+
     cano = ft.Container(
         width=150, 
         height=50, 
@@ -158,26 +258,90 @@ def main(page: ft.Page):
         animate_position=1000
     )
 
-    page.add(
-        # Container que contém o título do programa
-        ft.Container(ft.Text(" Aplicação Prensa hidráulica/ Problemas", color=colors.BLUE_50), bgcolor=colors.BLUE_900, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1400, height=25),
-        # Linha que contém o tema do programa
-        ft.Row([theme], alignment=ft.MainAxisAlignment.END),
-        # Linha que contém a seleção da variável que o usuário deseja calcular
-        variavel_dropdown,
-        #Linha que contem o botão que adiciona a variável que o usuário deseja calcular
-        addVariavel_bt,
-        # Container que cria linha azul, só estético
-        ft.Container(bgcolor=colors.BLUE_900, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1400, height=5),
-        # Linha que contém os campos de texto para o usuário digitar os valores
-        ft.Row([a1, a2, f1, f2], width=1400),
-        # Linha que contém o botão que calcula a variável que o usuário deseja calcular
-        addValores_bt,
-        # Container que cria linha azul, só estético
-        ft.Container(bgcolor=colors.BLUE_900, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1400, height=5),
-        # Container que contém a resolução do problema
-        ft.Container(display, bgcolor=colors.BLUE_50, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5)),
-        ft.Stack([emb1, emb2, cano, peso1, peso2], height=170),
-    )
+    def route_change(route):
+        page.views.clear()
+        page.views.append(
+            ft.View(
+                "/",
+                [   
+                    ft.AppBar(title=ft.Text("Flet app"), bgcolor=ft.colors.SURFACE_VARIANT),
+                    ft.Row(
+                            [
+                            rail,
+                            ft.VerticalDivider(width=1),
+                            ],
+                            expand=True,
+                        ),
+                ],
+            )
+        )
+        if page.route == "/store":
+            page.views.append(
+                ft.View(
+                    "/store",
+                    [
+                        ft.AppBar(title=ft.Text("Store"), bgcolor=ft.colors.SURFACE_VARIANT),
+                        ft.Row(
+                            [
+                                rail2,
+                                ft.VerticalDivider(width=1),
+                                ft.Column([
+                                    # Container que contém o título do programa
+                                    ft.Container(ft.Text(" Aplicação Prensa hidráulica/ Problemas", color=colors.BLUE_50), bgcolor=colors.BLUE_900, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1200, height=25),
+                                    # Linha que contém a seleção da variável que o usuário deseja calcular
+                                    variavel_dropdown,
+                                    #Linha que contem o botão que adiciona a variável que o usuário deseja calcular
+                                    addVariavel_bt,
+                                    # Container que cria linha azul, só estético
+                                    ft.Container(bgcolor=colors.BLUE_900, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1200, height=5),
+                                    # Linha que contém os campos de texto para o usuário digitar os valores
+                                    ft.Row([a1, a2, f1, f2], width=1200),
+                                    # Linha que contém o botão que calcula a variável que o usuário deseja calcular
+                                    addValores_bt,
+                                    # Container que cria linha azul, só estético
+                                    ft.Container(bgcolor=colors.BLUE_900, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1200, height=5),
+                                    # Container que contém a resolução do problema
+                                    ft.Container(display, bgcolor=colors.BLUE_50, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5)),
+                                    ft.Column([ ft.Stack([emb1, emb2, cano, peso1, peso2], height=170)], 
+                                        alignment=ft.MainAxisAlignment.START, 
+                                        expand=True)
+                                    ])
+                            ], expand=True),
+                    ],
+                )
+            )
+        elif page.route == "/settings":
+            page.views.append(
+            ft.View(
+                "/settings",
+                [   
+                    ft.AppBar(title=ft.Text("Settings"), bgcolor=ft.colors.SURFACE_VARIANT),
+                    ft.Row(
+                            [
+                            rail3,
+                            ft.VerticalDivider(width=1),
+                            ft.Column([
+                                # Linha que contém o tema do programa
+                                ft.Row([theme], alignment=ft.MainAxisAlignment.CENTER),
+                                ], 
+                                alignment=ft.MainAxisAlignment.START, 
+                                expand=True)
+                            ],
+                            expand=True,
+                        ),
+                ],
+            )
+        )
 
-ft.app(target=main)
+        page.update()
+
+    def view_pop(view):
+        page.views.pop()
+        top_view = page.views[-1]
+        page.go(top_view.route)
+
+    page.on_route_change = route_change
+    page.on_view_pop = view_pop
+    page.go(page.route)
+
+ft.app(target=main, view=ft.AppView.WEB_BROWSER)
