@@ -107,6 +107,56 @@ def main(page: ft.Page):
     addVariavel_bt = ft.ElevatedButton("Adicionar Variável", on_click=addVariavel)
     addValores_bt = ft.ElevatedButton("Calcular", on_click=calcular)
 
+    cano = ft.Container(
+        width=150, 
+        height=50, 
+        bgcolor="blue", 
+        top=100,                       #altura em que o objeto surge em relação ao topo da tela
+        left=150,
+        alignment=ft.alignment.center,
+        animate_position=1000
+    )
+
+        #cria a coluna da esquerda
+    emb2 = ft.Container(
+        content=ft.Text(color=colors.WHITE),
+        width=200,                      #largura da coluna (é o que varia)
+        height=150,                     #altura da coluna
+        bgcolor="blue",                 #cor do objeto
+        alignment=ft.alignment.center,
+        animate_position=1000           #não sei
+    )
+
+    #cria a coluna da direita
+    emb1 = ft.Container(
+        content=ft.Text(color=colors.WHITE),
+        width=50, 
+        height=150, 
+        bgcolor="blue", 
+        left=275, 
+        alignment=ft.alignment.center,
+        animate_position=1000
+    )
+
+    peso1 = ft.Container(
+        content=ft.Text(value="(2)", color=colors.WHITE),
+        width=200,                      #largura da coluna (é o que varia)
+        height=30,                     #altura da coluna
+        bgcolor="red",                 #cor do objeto
+        alignment=ft.alignment.center,
+        animate_position=1000           #não sei
+    )
+
+    #cria a coluna da direita
+    peso2 = ft.Container(
+        content=ft.Text(value="(1)", color=colors.WHITE),
+        width=50, 
+        height=30, 
+        bgcolor="red", 
+        left=275, 
+        alignment=ft.alignment.center,
+        animate_position=1000
+    )
 
     page.add(
         # Container que contém o título do programa
@@ -126,7 +176,8 @@ def main(page: ft.Page):
         # Container que cria linha azul, só estético
         ft.Container(bgcolor=colors.BLUE_900, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1400, height=5),
         # Container que contém a resolução do problema
-        ft.Container(display, bgcolor=colors.BLUE_50, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5))
+        ft.Container(display, bgcolor=colors.BLUE_50, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5)),
+        ft.Stack([emb1, emb2, cano, peso1, peso2], height=170),
     )
 
 ft.app(target=main)
