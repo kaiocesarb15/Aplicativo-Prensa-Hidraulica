@@ -347,6 +347,13 @@ def main(page: ft.Page):
         fit=ft.ImageFit.CONTAIN,
     )
 
+    img3 = ft.Image(
+        src=f"1_reformulado-removebg.png",
+        width=1000,
+        height=1000,
+        fit=ft.ImageFit.CONTAIN,
+    )
+
     def route_change(route):
         page.views.clear()
         page.views.append(
@@ -358,6 +365,7 @@ def main(page: ft.Page):
                             [
                             rail,
                             ft.VerticalDivider(width=1),
+                            img3
                             ],
                             expand=True,
                         ),
