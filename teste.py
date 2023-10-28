@@ -24,16 +24,16 @@ def main(page: ft.Page):
     variavel_dropdown = ft.Dropdown(
         label="Variável que deseja calcular",
         options=[
-            ft.dropdown.Option("Área do embolo 1"),
-            ft.dropdown.Option("Área do embolo 2"),
-            ft.dropdown.Option("Força no embolo 1"),
-            ft.dropdown.Option("Força no embolo 2")],
+            ft.dropdown.Option("Área do êmbolo 1"),
+            ft.dropdown.Option("Área do êmbolo 2"),
+            ft.dropdown.Option("Força no êmbolo 1"),
+            ft.dropdown.Option("Força no êmbolo 2")],
     )
 
-    a1 = ft.TextField(label="Área do embolo 1", width=290)
-    a2 = ft.TextField(label="Área do embolo 2", width=290)
-    f1 = ft.TextField(label="Força no embolo 1", width=290)
-    f2 = ft.TextField(label="Força no embolo 2", width=290)
+    a1 = ft.TextField(label="Área do êmbolo 1", width=290)
+    a2 = ft.TextField(label="Área do êmbolo 2", width=290)
+    f1 = ft.TextField(label="Força no êmbolo 1", width=290)
+    f2 = ft.TextField(label="Força no êmbolo 2", width=290)
     display = ft.Column()
 
     a1.disabled = True
@@ -75,32 +75,33 @@ def main(page: ft.Page):
     # Tentei fazer de tudo para deixar o código menos repetitivo, mas esse foi o único jeito que funcionou
     def calcular(e):
         display.controls.clear()
-        dados = f"* Dados da questão: Área do embolo 1: {a1.value}(cm²), Área do embolo 2: {a2.value}(cm²), Força do embolo 1: {f1.value}(N), Força do embolo 2: {f2.value}(N).\n\n* Método de resolução: Formula do teorema de pascal: F1/a1 = F2/a2."
+        dados = f"* Dados da questão: Área do êmbolo 1: {a1.value}(cm²), Área do êmbolo 2: {a2.value}(cm²), Força do êmbolo 1: {f1.value}(N), Força do êmbolo 2: {f2.value}(N).\n\n* Método de resolução: Formula do teorema de pascal: F1/a1 = F2/a2."
 
         if a1.value == "a1":
-            calculo = f"* Resolução: Para descobrir a área do embolo 1, basta multiplicar a área do embolo 2 pela força do embolo 1 e dividir pela força do embolo 2. "
+            calculo = f"* Resolução: Para descobrir a área do êmbolo 1, basta multiplicar a área do êmbolo 2 pela força do êmbolo 1 e dividir pela força do êmbolo 2. "
             resposta = (float(a2.value) * float(f1.value)) / float(f2.value)
             texto = f"{dados}\n\n{calculo}\n    F1/a1 = F2/a2\n    a1*F2 = F1*a2\n    a1 = (F1*a2)/F2\n    a1 = ({f1.value}*{a2.value})/{f2.value}\n    a1 = {resposta}cm²"
-            display.controls.append(ft.Text(texto, color=colors.BLACK))
+            #display.controls.append(ft.Text(texto, color=colors.BLACK))
 
         elif a2.value == "a2":
-            calculo = f"* Resolução: Para descobrir a área do embolo 2, basta multiplicar a área do embolo 1 pela força do embolo 2 e dividir pela força do embolo 1. "
+            calculo = f"* Resolução: Para descobrir a área do êmbolo 2, basta multiplicar a área do êmbolo 1 pela força do êmbolo 2 e dividir pela força do êmbolo 1. "
             resposta = (float(a1.value) * float(f2.value)) / float(f1.value)
             texto = f"{dados}\n\n{calculo}\n    F1/a1 = F2/a2\n    a2*F1 = F2*a1\n    a2 = (F2*a1)/F1\n    a2 = ({f2.value}*{a1.value})/{f1.value}\n    a2 = {resposta}cm²"
-            display.controls.append(ft.Text(texto, color=colors.BLACK))
+            #display.controls.append(ft.Text(texto, color=colors.BLACK))
 
         elif f1.value == "F1":
-            calculo = f"* Resolução: Para descobrir a força no embolo 1, basta multiplicar a área do embolo 1 pela força do embolo 2 e dividir pela área do embolo 2. "
+            calculo = f"* Resolução: Para descobrir a força no êmbolo 1, basta multiplicar a área do êmbolo 1 pela força do êmbolo 2 e dividir pela área do êmbolo 2. "
             resposta = (float(a1.value) * float(f2.value)) / float(a2.value)
             texto = f"{dados}\n\n{calculo}\n    F1/a1 = F2/a2\n    F1*a2 = F2*a1\n    F1 = (F2*a1)/a2\n    F1 = ({f2.value}*{a1.value})/{a2.value}\n    F1 = {resposta}N"
-            display.controls.append(ft.Text(texto, color=colors.BLACK))
+            #display.controls.append(ft.Text(texto, color=colors.BLACK))
 
         else:
-            calculo = f"* Resolução: Para descobrir a força no embolo 2, basta multiplicar a área do embolo 2 pela força do embolo 1 e dividir pela área do embolo 1. "
+            calculo = f"* Resolução: Para descobrir a força no êmbolo 2, basta multiplicar a área do êmbolo 2 pela força do êmbolo 1 e dividir pela área do êmbolo 1. "
             resposta = (float(a2.value) * float(f1.value)) / float(a1.value)
             texto = f"{dados}\n\n{calculo}\n    F1/a1 = F2/a2\n    F2*a1 = F1*a2\n    F2 = (F1*a2)/a1\n    F2 = ({f1.value}*{a2.value})/{a1.value}\n    F2 = {resposta}N"
-            display.controls.append(ft.Text(texto, color=colors.BLACK))
+            #display.controls.append(ft.Text(texto, color=colors.BLACK))
         
+        display.controls.append(ft.Text(texto, color=colors.BLACK))
         page.update()
 
     # Botões que chamam as funções
@@ -139,17 +140,17 @@ def main(page: ft.Page):
         group_alignment=-0.9,
         destinations=[
             ft.NavigationRailDestination(
-                icon=ft.icons.FAVORITE_BORDER, selected_icon=ft.icons.FAVORITE, label="First"
+                icon=ft.icons.HOME_WORK, selected_icon=ft.icons.HOME_WORK_SHARP, label="Início"
             ),
             ft.NavigationRailDestination(
-                icon_content=ft.Icon(ft.icons.BOOKMARK_BORDER),
-                selected_icon_content=ft.Icon(ft.icons.BOOKMARK),
-                label="Second",
+                icon_content=ft.Icon(ft.icons.HARDWARE_OUTLINED),
+                selected_icon_content=ft.Icon(ft.icons.HARDWARE),
+                label="Simulação",
             ),
             ft.NavigationRailDestination(
                 icon=ft.icons.SETTINGS_OUTLINED,
                 selected_icon_content=ft.Icon(ft.icons.SETTINGS),
-                label_content=ft.Text("Settings"),
+                label_content=ft.Text("Configurações"),
             ),
         ],
         on_change=mudaTela
@@ -165,24 +166,24 @@ def main(page: ft.Page):
         group_alignment=-0.9,
         destinations=[
             ft.NavigationRailDestination(
-                icon=ft.icons.FAVORITE_BORDER, selected_icon=ft.icons.FAVORITE, label="First"
+                icon=ft.icons.HOME_WORK, selected_icon=ft.icons.HOME_WORK_SHARP, label="Início" 
             ),
             ft.NavigationRailDestination(
-                icon_content=ft.Icon(ft.icons.BOOKMARK_BORDER),
-                selected_icon_content=ft.Icon(ft.icons.BOOKMARK),
-                label="Second",
+                icon_content=ft.Icon(ft.icons.HARDWARE_OUTLINED), #icons.BOOKMARK_BORDER),
+                selected_icon_content=ft.Icon(ft.icons.HARDWARE), #icons.BOOKMARK),
+                label="Simulação",
             ),
             ft.NavigationRailDestination(
                 icon=ft.icons.SETTINGS_OUTLINED,
                 selected_icon_content=ft.Icon(ft.icons.SETTINGS),
-                label_content=ft.Text("Settings"),
+                label_content=ft.Text("Configurações"),
             ),
         ],
         on_change=mudaTela
     )
 
     rail3 = ft.NavigationRail(
-        selected_index=1,
+        selected_index=2,
         label_type=ft.NavigationRailLabelType.ALL,
         # extended=True,
         min_width=100,
@@ -191,17 +192,17 @@ def main(page: ft.Page):
         group_alignment=-0.9,
         destinations=[
             ft.NavigationRailDestination(
-                icon=ft.icons.FAVORITE_BORDER, selected_icon=ft.icons.FAVORITE, label="First"
+                icon=ft.icons.HOME_WORK, selected_icon=ft.icons.HOME_WORK_SHARP, label="First"
             ),
             ft.NavigationRailDestination(
-                icon_content=ft.Icon(ft.icons.BOOKMARK_BORDER),
-                selected_icon_content=ft.Icon(ft.icons.BOOKMARK),
-                label="Second",
+                icon_content=ft.Icon(ft.icons.HARDWARE_OUTLINED),
+                selected_icon_content=ft.Icon(ft.icons.HARDWARE),
+                label="Simulação",
             ),
             ft.NavigationRailDestination(
                 icon=ft.icons.SETTINGS_OUTLINED,
                 selected_icon_content=ft.Icon(ft.icons.SETTINGS),
-                label_content=ft.Text("Settings"),
+                label_content=ft.Text("Configurações"),
             ),
         ],
         on_change=mudaTela
