@@ -71,6 +71,46 @@ def main(page: ft.Page):
 
         page.update()
 
+    def redimensionar(a):
+        ajusteImg2 = 0
+        if a == "a2":
+            emb2.width = emb1.width * int(f2.value) / int(f1.value)
+            emb1.left = emb2.width + 85
+            if (emb2.width + 182 + emb1.width >= 1200):
+                emb1.width = 18
+                emb2.width = 1000
+                emb1.left = emb2.width + 85
+                ajusteImg2 = - 15
+            elif emb2.width < 18:
+                emb2.width = 18
+                emb1.width = 1000
+            else:
+                emb1.width = 50
+                emb2.width = emb1.width * int(f2.value) / int(f1.value)
+                emb1.left = emb2.width + 85
+        else:
+            emb1.width = emb2.width * int(f1.value) / int(f2.value)
+            if (emb2.width + 182 + emb1.width >= 1200):
+                emb2.width = 18
+                emb1.width = 1000
+                emb1.left = emb2.width + 85
+                ajusteImg2 = 475
+            elif emb1.width < 18:
+                emb1.width = 18
+                emb2.width = 1000
+                emb1.left = 1070
+                ajusteImg2 = -15
+            else:
+                emb2.width = 50
+                emb1.width = emb2.width * int(f1.value) / int(f2.value)
+                emb1.left = emb2.width + 85
+        peso1.width = emb2.width
+        cano.width = emb2.width + 75
+        peso2.left = emb1.left
+        peso2.width = emb1.width
+        img2.left = emb1.left + ajusteImg2
+        img.left = (emb2.width/2)- 15
+
     # Função que calcula a variável que o usuário deseja calcular e exibe a resolução
     # Tentei fazer de tudo para deixar o código menos repetitivo, mas esse foi o único jeito que funcionou
     def calcular(e):
@@ -81,11 +121,13 @@ def main(page: ft.Page):
             calculo = f"* Resolução: Para descobrir a área do êmbolo 1, basta multiplicar a área do êmbolo 2 pela força do êmbolo 1 e dividir pela força do êmbolo 2. "
             resposta = (float(a2.value) * float(f1.value)) / float(f2.value)
             texto = f"{dados}\n\n{calculo}\n    F1/a1 = F2/a2\n    a1*F2 = F1*a2\n    a1 = (F1*a2)/F2\n    a1 = ({f1.value}*{a2.value})/{f2.value}\n    a1 = {resposta}cm²"
+            redimensionar("a1")
 
         elif a2.value == "a2":
             calculo = f"* Resolução: Para descobrir a área do êmbolo 2, basta multiplicar a área do êmbolo 1 pela força do êmbolo 2 e dividir pela força do êmbolo 1. "
             resposta = (float(a1.value) * float(f2.value)) / float(f1.value)
             texto = f"{dados}\n\n{calculo}\n    F1/a1 = F2/a2\n    a2*F1 = F2*a1\n    a2 = (F2*a1)/F1\n    a2 = ({f2.value}*{a1.value})/{f1.value}\n    a2 = {resposta}cm²"
+            redimensionar("a2")
 
         elif f1.value == "F1":
             calculo = f"* Resolução: Para descobrir a força no êmbolo 1, basta multiplicar a área do êmbolo 1 pela força do êmbolo 2 e dividir pela área do êmbolo 2. "
@@ -106,7 +148,7 @@ def main(page: ft.Page):
 
     #função que muda a tela 
     def mudaTela(e):
-        #"/" é a tela inicial
+        #"/" é a tela inicial, "/store" é a tela da aplicação
         if page.route == "/":
             if e.control.selected_index == 1:
                 page.go("/store")
@@ -205,11 +247,11 @@ def main(page: ft.Page):
     )
 
     cano = ft.Container(
-        width=150, 
+        width=300, 
         height=50, 
         bgcolor="blue", 
         top=150,                       #altura em que o objeto surge em relação ao topo da tela
-        left=160,
+        left=10,
         alignment=ft.alignment.center,
         animate_position=1000
     )
