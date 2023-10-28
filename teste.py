@@ -74,9 +74,10 @@ def main(page: ft.Page):
     def redimensionar(a):
         ajusteImg2 = 0
         if a == "a2":
-            emb2.width = emb1.width * int(f2.value) / int(f1.value)
+            emb1.width = 50
+            emb2.width = emb1.width * float(f2.value) / float(f1.value)
             emb1.left = emb2.width + 85
-            if (emb2.width + 182 + emb1.width >= 1200):
+            if (emb2.width + 232 >= 1200):
                 emb1.width = 18
                 emb2.width = 1000
                 emb1.left = emb2.width + 85
@@ -86,10 +87,11 @@ def main(page: ft.Page):
                 emb1.width = 1000
             else:
                 emb1.width = 50
-                emb2.width = emb1.width * int(f2.value) / int(f1.value)
+                emb2.width = emb1.width * float(f2.value) / float(f1.value)
                 emb1.left = emb2.width + 85
         else:
-            emb1.width = emb2.width * int(f1.value) / int(f2.value)
+            emb2.width = 200
+            emb1.width = emb2.width * float(f1.value) / float(f2.value)
             if (emb2.width + 182 + emb1.width >= 1200):
                 emb2.width = 18
                 emb1.width = 1000
@@ -102,13 +104,38 @@ def main(page: ft.Page):
                 ajusteImg2 = -15
             else:
                 emb2.width = 50
-                emb1.width = emb2.width * int(f1.value) / int(f2.value)
+                emb1.width = emb2.width * float(f1.value) / float(f2.value)
                 emb1.left = emb2.width + 85
         peso1.width = emb2.width
         cano.width = emb2.width + 75
         peso2.left = emb1.left
         peso2.width = emb1.width
-        img2.left = emb1.left + ajusteImg2
+        img2.left = emb1.left + (emb1.width/2) - 25
+        img.left = (emb2.width/2)- 15
+
+    def proporcaoInicial():
+        emb2.width = 200
+        emb1.left = 285
+        emb1.width = emb2.width * float(a1.value) / float(a2.value)
+        #ajusteImg2 = 0
+        if(emb1.width < 18):
+            emb1.width = 18
+            emb2.width = emb1.width * float(a2.value) / float(a1.value)
+            if(emb2.width > 1000):
+                emb2.width = 1000
+                #ajusteImg2 = -15
+        elif emb1.width > 1000:
+            emb1.width = 1000
+            #ajusteImg2 = 475
+            emb2.width = emb1.width * float(a2.value) / float(a1.value)
+            if(emb2.width < 18):
+                emb2.width = 18
+        emb1.left = emb2.width + 75
+        peso2.left = emb1.left
+        peso1.width = emb2.width
+        peso2.width = emb1.width
+        cano.width = emb2.width+75
+        img2.left = emb1.left + (emb1.width/2) - 25
         img.left = (emb2.width/2)- 15
 
     # Função que calcula a variável que o usuário deseja calcular e exibe a resolução
@@ -133,12 +160,13 @@ def main(page: ft.Page):
             calculo = f"* Resolução: Para descobrir a força no êmbolo 1, basta multiplicar a área do êmbolo 1 pela força do êmbolo 2 e dividir pela área do êmbolo 2. "
             resposta = (float(a1.value) * float(f2.value)) / float(a2.value)
             texto = f"{dados}\n\n{calculo}\n    F1/a1 = F2/a2\n    F1*a2 = F2*a1\n    F1 = (F2*a1)/a2\n    F1 = ({f2.value}*{a1.value})/{a2.value}\n    F1 = {resposta}N"
-
+            proporcaoInicial()
         else:
             calculo = f"* Resolução: Para descobrir a força no êmbolo 2, basta multiplicar a área do êmbolo 2 pela força do êmbolo 1 e dividir pela área do êmbolo 1. "
             resposta = (float(a2.value) * float(f1.value)) / float(a1.value)
             texto = f"{dados}\n\n{calculo}\n    F1/a1 = F2/a2\n    F2*a1 = F1*a2\n    F2 = (F1*a2)/a1\n    F2 = ({f1.value}*{a2.value})/{a1.value}\n    F2 = {resposta}N"
-        
+            proporcaoInicial()
+
         display.controls.append(ft.Text(texto, color=colors.BLACK))
         page.update()
 
@@ -247,7 +275,7 @@ def main(page: ft.Page):
     )
 
     cano = ft.Container(
-        width=300, 
+        width=275, 
         height=50, 
         bgcolor="blue", 
         top=150,                       #altura em que o objeto surge em relação ao topo da tela
