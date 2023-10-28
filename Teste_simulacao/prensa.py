@@ -32,10 +32,13 @@ def main(page: ft.Page):
     f1 = 200
     f2 = 2000
     
-    #atualiza a página e o valor da intensidade das forças e as dimensões do objeto
+    #atualiza a página e o valor da intensidade das forças  e as dimensões do objeto
     def atualizar(emb1, emb2, f1, f2):
         result.value=f"""Área (1): {emb1.width/5}cm²      F1: {f1}N
         \nÁrea (2): {emb2.width/2}cm²      F2: {f2}N"""
+        tampa1.width = emb1.width
+        tampa1.left = emb1.left
+        tampa2.width = emb2.width
         result.update()
         page.update()
 
@@ -104,7 +107,7 @@ def main(page: ft.Page):
 
     #cria a coluna da esquerda
     emb2 = ft.Container(
-        content=ft.Text(value="(2)", color=colors.WHITE),
+        #content=ft.Text(value="(2)", color=colors.WHITE),
         width=200,                      #largura da coluna (é o que varia)
         height=150,                     #altura da coluna
         bgcolor="blue",                 #cor do objeto
@@ -112,12 +115,31 @@ def main(page: ft.Page):
         animate_position=1000           #não sei
     )
 
+    tampa2 = ft.Container(
+        content=ft.Text(value="(2)", color=colors.WHITE),
+        width=200,                      #largura da coluna (é o que varia)
+        height=30,                     #altura da coluna
+        bgcolor="red",                 #cor do objeto
+        alignment=ft.alignment.center,
+        animate_position=1000           #não sei
+    )
+
     #cria a coluna da direita
     emb1 = ft.Container(
-        content=ft.Text(value="(1)", color=colors.WHITE),
+        #content=ft.Text(value="(1)", color=colors.WHITE),
         width=50, 
         height=150, 
         bgcolor="blue", 
+        left=275, 
+        alignment=ft.alignment.center,
+        animate_position=1000
+    )
+
+    tampa1 = ft.Container(
+        content=ft.Text(value="(1)", color=colors.WHITE),
+        width=50, 
+        height=50, 
+        bgcolor="red", 
         left=275, 
         alignment=ft.alignment.center,
         animate_position=1000
@@ -199,7 +221,7 @@ def main(page: ft.Page):
         )
 
     page.add(
-        ft.Stack([emb2, cano, emb1], height=170),
+        ft.Stack([emb2, cano, emb1, tampa1, tampa2], height=170),
         ft.Row(width=500, controls=[reiniciar_bottom, theme, choose_variable]),
         display,
         keyboard,
