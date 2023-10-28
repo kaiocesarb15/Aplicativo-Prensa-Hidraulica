@@ -81,25 +81,21 @@ def main(page: ft.Page):
             calculo = f"* Resolução: Para descobrir a área do êmbolo 1, basta multiplicar a área do êmbolo 2 pela força do êmbolo 1 e dividir pela força do êmbolo 2. "
             resposta = (float(a2.value) * float(f1.value)) / float(f2.value)
             texto = f"{dados}\n\n{calculo}\n    F1/a1 = F2/a2\n    a1*F2 = F1*a2\n    a1 = (F1*a2)/F2\n    a1 = ({f1.value}*{a2.value})/{f2.value}\n    a1 = {resposta}cm²"
-            #display.controls.append(ft.Text(texto, color=colors.BLACK))
 
         elif a2.value == "a2":
             calculo = f"* Resolução: Para descobrir a área do êmbolo 2, basta multiplicar a área do êmbolo 1 pela força do êmbolo 2 e dividir pela força do êmbolo 1. "
             resposta = (float(a1.value) * float(f2.value)) / float(f1.value)
             texto = f"{dados}\n\n{calculo}\n    F1/a1 = F2/a2\n    a2*F1 = F2*a1\n    a2 = (F2*a1)/F1\n    a2 = ({f2.value}*{a1.value})/{f1.value}\n    a2 = {resposta}cm²"
-            #display.controls.append(ft.Text(texto, color=colors.BLACK))
 
         elif f1.value == "F1":
             calculo = f"* Resolução: Para descobrir a força no êmbolo 1, basta multiplicar a área do êmbolo 1 pela força do êmbolo 2 e dividir pela área do êmbolo 2. "
             resposta = (float(a1.value) * float(f2.value)) / float(a2.value)
             texto = f"{dados}\n\n{calculo}\n    F1/a1 = F2/a2\n    F1*a2 = F2*a1\n    F1 = (F2*a1)/a2\n    F1 = ({f2.value}*{a1.value})/{a2.value}\n    F1 = {resposta}N"
-            #display.controls.append(ft.Text(texto, color=colors.BLACK))
 
         else:
             calculo = f"* Resolução: Para descobrir a força no êmbolo 2, basta multiplicar a área do êmbolo 2 pela força do êmbolo 1 e dividir pela área do êmbolo 1. "
             resposta = (float(a2.value) * float(f1.value)) / float(a1.value)
             texto = f"{dados}\n\n{calculo}\n    F1/a1 = F2/a2\n    F2*a1 = F1*a2\n    F2 = (F1*a2)/a1\n    F2 = ({f1.value}*{a2.value})/{a1.value}\n    F2 = {resposta}N"
-            #display.controls.append(ft.Text(texto, color=colors.BLACK))
         
         display.controls.append(ft.Text(texto, color=colors.BLACK))
         page.update()
