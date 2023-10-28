@@ -4,8 +4,8 @@ from flet import colors
 def main(page: ft.Page):
     page.window_width = 1400
     page.window_height = 500
-    page.title = 'Aplicação Prensa hidráulica'
-    page.window_always_on_top = True
+    page.title = 'APHID (Aplicação Prensa Hidráulica)'
+    #page.window_always_on_top = True
 
     # Função que muda o tema do programa
     def theme_changed(e):
@@ -142,29 +142,29 @@ def main(page: ft.Page):
     # Tentei fazer de tudo para deixar o código menos repetitivo, mas esse foi o único jeito que funcionou
     def calcular(e):
         display.controls.clear()
-        dados = f"* Dados da questão: Área do êmbolo 1: {a1.value}(cm²), Área do êmbolo 2: {a2.value}(cm²), Força do êmbolo 1: {f1.value}(N), Força do êmbolo 2: {f2.value}(N).\n\n* Método de resolução: Formula do teorema de pascal: F1/a1 = F2/a2."
+        dados = f" * Dados da questão: Área do êmbolo 1: {a1.value}(cm²), Área do êmbolo 2: {a2.value}(cm²), Força do êmbolo 1: {f1.value}(N), Força do êmbolo 2: {f2.value}(N).\n\n * Método de resolução: Formula do teorema de pascal: F1/a1 = F2/a2."
 
         if a1.value == "a1":
-            calculo = f"* Resolução: Para descobrir a área do êmbolo 1, basta multiplicar a área do êmbolo 2 pela força do êmbolo 1 e dividir pela força do êmbolo 2. "
+            calculo = f" * Resolução: Para descobrir a área do êmbolo 1, basta multiplicar a área do êmbolo 2 pela força do êmbolo 1 e dividir pela força do êmbolo 2. "
             resposta = (float(a2.value) * float(f1.value)) / float(f2.value)
-            texto = f"{dados}\n\n{calculo}\n    F1/a1 = F2/a2\n    a1*F2 = F1*a2\n    a1 = (F1*a2)/F2\n    a1 = ({f1.value}*{a2.value})/{f2.value}\n    a1 = {resposta}cm²"
+            texto = f"{dados}\n\n{calculo}\n     F1/a1 = F2/a2\n     a1*F2 = F1*a2\n     a1 = (F1*a2)/F2\n     a1 = ({f1.value}*{a2.value})/{f2.value}\n     a1 = {resposta}cm²"
             redimensionar("a1")
 
         elif a2.value == "a2":
-            calculo = f"* Resolução: Para descobrir a área do êmbolo 2, basta multiplicar a área do êmbolo 1 pela força do êmbolo 2 e dividir pela força do êmbolo 1. "
+            calculo = f" * Resolução: Para descobrir a área do êmbolo 2, basta multiplicar a área do êmbolo 1 pela força do êmbolo 2 e dividir pela força do êmbolo 1. "
             resposta = (float(a1.value) * float(f2.value)) / float(f1.value)
-            texto = f"{dados}\n\n{calculo}\n    F1/a1 = F2/a2\n    a2*F1 = F2*a1\n    a2 = (F2*a1)/F1\n    a2 = ({f2.value}*{a1.value})/{f1.value}\n    a2 = {resposta}cm²"
+            texto = f"{dados}\n\n{calculo}\n     F1/a1 = F2/a2\n     a2*F1 = F2*a1\n     a2 = (F2*a1)/F1\n     a2 = ({f2.value}*{a1.value})/{f1.value}\n     a2 = {resposta}cm²"
             redimensionar("a2")
 
         elif f1.value == "F1":
-            calculo = f"* Resolução: Para descobrir a força no êmbolo 1, basta multiplicar a área do êmbolo 1 pela força do êmbolo 2 e dividir pela área do êmbolo 2. "
+            calculo = f" * Resolução: Para descobrir a força no êmbolo 1, basta multiplicar a área do êmbolo 1 pela força do êmbolo 2 e dividir pela área do êmbolo 2. "
             resposta = (float(a1.value) * float(f2.value)) / float(a2.value)
-            texto = f"{dados}\n\n{calculo}\n    F1/a1 = F2/a2\n    F1*a2 = F2*a1\n    F1 = (F2*a1)/a2\n    F1 = ({f2.value}*{a1.value})/{a2.value}\n    F1 = {resposta}N"
+            texto = f"{dados}\n\n{calculo}\n     F1/a1 = F2/a2\n     F1*a2 = F2*a1\n     F1 = (F2*a1)/a2\n     F1 = ({f2.value}*{a1.value})/{a2.value}\n     F1 = {resposta}N"
             proporcaoInicial()
         else:
-            calculo = f"* Resolução: Para descobrir a força no êmbolo 2, basta multiplicar a área do êmbolo 2 pela força do êmbolo 1 e dividir pela área do êmbolo 1. "
+            calculo = f" * Resolução: Para descobrir a força no êmbolo 2, basta multiplicar a área do êmbolo 2 pela força do êmbolo 1 e dividir pela área do êmbolo 1. "
             resposta = (float(a2.value) * float(f1.value)) / float(a1.value)
-            texto = f"{dados}\n\n{calculo}\n    F1/a1 = F2/a2\n    F2*a1 = F1*a2\n    F2 = (F1*a2)/a1\n    F2 = ({f1.value}*{a2.value})/{a1.value}\n    F2 = {resposta}N"
+            texto = f"{dados}\n\n{calculo}\n     F1/a1 = F2/a2\n     F2*a1 = F1*a2\n     F2 = (F1*a2)/a1\n     F2 = ({f1.value}*{a2.value})/{a1.value}\n     F2 = {resposta}N"
             proporcaoInicial()
 
         display.controls.append(ft.Text(texto, color=colors.BLACK))
@@ -179,19 +179,19 @@ def main(page: ft.Page):
         #"/" é a tela inicial, "/store" é a tela da aplicação
         if page.route == "/":
             if e.control.selected_index == 1:
-                page.go("/store")
+                page.go("/simulação")
             elif e.control.selected_index == 2:
-                page.go("/settings")
-        elif page.route == "/store":
+                page.go("/configurações")
+        elif page.route == "/simulação":
             if e.control.selected_index == 0:
                 page.go("/")
             elif e.control.selected_index == 2:
-                page.go("/settings")
-        elif page.route == "/settings":
+                page.go("/configurações")
+        elif page.route == "/configurações":
             if e.control.selected_index == 0:
                 page.go("/")
             elif e.control.selected_index == 1:
-                page.go("/store")
+                page.go("/simulação")
         rail.selected_index = 0
         rail2.selected_index = 1
         rail3.selected_index = 2
@@ -206,11 +206,11 @@ def main(page: ft.Page):
         group_alignment=-0.9,
         destinations=[
             ft.NavigationRailDestination(
-                icon=ft.icons.HOME_WORK, selected_icon=ft.icons.HOME_WORK_SHARP, label="Início"
+                icon=ft.icons.HOME_OUTLINED, selected_icon=ft.icons.HOME, label="Início"
             ),
             ft.NavigationRailDestination(
-                icon_content=ft.Icon(ft.icons.HARDWARE_OUTLINED),
-                selected_icon_content=ft.Icon(ft.icons.HARDWARE),
+                icon_content=ft.Icon(ft.icons.CALCULATE_OUTLINED),
+                selected_icon_content=ft.Icon(ft.icons.CALCULATE),
                 label="Simulação",
             ),
             ft.NavigationRailDestination(
@@ -232,11 +232,11 @@ def main(page: ft.Page):
         group_alignment=-0.9,
         destinations=[
             ft.NavigationRailDestination(
-                icon=ft.icons.HOME_WORK, selected_icon=ft.icons.HOME_WORK_SHARP, label="Início" 
+                icon=ft.icons.HOME_OUTLINED, selected_icon=ft.icons.HOME, label="Início"
             ),
             ft.NavigationRailDestination(
-                icon_content=ft.Icon(ft.icons.HARDWARE_OUTLINED), #icons.BOOKMARK_BORDER),
-                selected_icon_content=ft.Icon(ft.icons.HARDWARE), #icons.BOOKMARK),
+                icon_content=ft.Icon(ft.icons.CALCULATE_OUTLINED),
+                selected_icon_content=ft.Icon(ft.icons.CALCULATE),
                 label="Simulação",
             ),
             ft.NavigationRailDestination(
@@ -258,11 +258,11 @@ def main(page: ft.Page):
         group_alignment=-0.9,
         destinations=[
             ft.NavigationRailDestination(
-                icon=ft.icons.HOME_WORK, selected_icon=ft.icons.HOME_WORK_SHARP, label="First"
+                icon=ft.icons.HOME_OUTLINED, selected_icon=ft.icons.HOME, label="Início"
             ),
             ft.NavigationRailDestination(
-                icon_content=ft.Icon(ft.icons.HARDWARE_OUTLINED),
-                selected_icon_content=ft.Icon(ft.icons.HARDWARE),
+                icon_content=ft.Icon(ft.icons.CALCULATE_OUTLINED),
+                selected_icon_content=ft.Icon(ft.icons.CALCULATE),
                 label="Simulação",
             ),
             ft.NavigationRailDestination(
@@ -312,7 +312,7 @@ def main(page: ft.Page):
         content=ft.Text(value="(2)", color=colors.WHITE),
         width=200,                      #largura da coluna (é o que varia)
         height=30,                     #altura da coluna
-        bgcolor="red",                 #cor do objeto
+        bgcolor="grey",                 #cor do objeto
         left=10,
         top=50,
         alignment=ft.alignment.center,
@@ -324,7 +324,7 @@ def main(page: ft.Page):
         content=ft.Text(value="(1)", color=colors.WHITE),
         width=50, 
         height=30, 
-        bgcolor="red", 
+        bgcolor="grey", 
         left=285, 
         top=50,
         alignment=ft.alignment.center,
@@ -332,7 +332,7 @@ def main(page: ft.Page):
     )
         
     img = ft.Image(
-        src=f"seta_p_baixo.png",
+        src=f"imagens/forca_p_baixo.png",
         width=50,
         height=50,
         left=85,
@@ -340,7 +340,7 @@ def main(page: ft.Page):
     )
 
     img2 = ft.Image(
-        src=f"seta_p_baixo.png",
+        src=f"imagens/forca_p_baixo.png",
         width=50,
         height=50,
         left=285,
@@ -348,9 +348,9 @@ def main(page: ft.Page):
     )
 
     img3 = ft.Image(
-        src=f"1_reformulado-removebg.png",
-        width=1000,
-        height=1000,
+        src=f"imagens/logo_APHID.png",
+        #width=500,
+        #height=500,
         fit=ft.ImageFit.CONTAIN,
     )
 
@@ -360,42 +360,38 @@ def main(page: ft.Page):
             ft.View(
                 "/",
                 [   
-                    ft.AppBar(title=ft.Text("Início"), bgcolor=ft.colors.SURFACE_VARIANT),
+                    ft.AppBar(title=ft.Text("Início", color=colors.BLUE_50), bgcolor=ft.colors.BLUE_700),
                     ft.Row(
                             [
                             rail,
                             ft.VerticalDivider(width=1),
-                            img3
+                            ft.Row([img3], alignment=ft.MainAxisAlignment.CENTER, expand=True)
                             ],
                             expand=True,
                         ),
                 ],
             )
         )
-        if page.route == "/store":
+        if page.route == "/simulação":
             page.views.append(
                 ft.View(
-                    "/store",
+                    "/simulação",
                     [
-                        ft.AppBar(title=ft.Text("Prensa"), bgcolor=ft.colors.SURFACE_VARIANT),
+                        ft.AppBar(title=ft.Text("Simulação", color=colors.BLUE_50), bgcolor=ft.colors.BLUE_700),
                         ft.Row(controls=[
                             rail2,
                             ft.VerticalDivider(width=1),
                             ft.Column(controls=[
-                                # Container que contém o título do programa
-                                ft.Container(ft.Text(" Aplicação Prensa hidráulica/ Problemas", color=colors.BLUE_50), bgcolor=colors.BLUE_900, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1200, height=25),
                                 # Linha que contém a seleção da variável que o usuário deseja calcular
-                                variavel_dropdown,
-                                #Linha que contem o botão que adiciona a variável que o usuário deseja calcular
-                                addVariavel_bt,
+                                ft.Row([variavel_dropdown, addVariavel_bt], width=1200),
                                 # Container que cria linha azul, só estético
-                                ft.Container(bgcolor=colors.BLUE_900, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1200, height=5),
+                                ft.Container(bgcolor=colors.BLUE_700, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1200, height=5),
                                 # Linha que contém os campos de texto para o usuário digitar os valores
                                 ft.Row([a1, a2, f1, f2], width=1200),
                                 # Linha que contém o botão que calcula a variável que o usuário deseja calcular
                                 addValores_bt,
                                 # Container que cria linha azul, só estético
-                                ft.Container(bgcolor=colors.BLUE_900, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1200, height=5),
+                                ft.Container(bgcolor=colors.BLUE_700, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1200, height=5),
                                 # Container que contém a resolução do problema
                                 ft.Container(display, bgcolor=colors.BLUE_50, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5)),
                                 #cria a imagem do êmbolo
@@ -405,12 +401,12 @@ def main(page: ft.Page):
                     ], 
                 )
             )
-        elif page.route == "/settings":
+        elif page.route == "/configurações":
             page.views.append(
             ft.View(
-                "/settings",
+                "/configurações",
                 [   
-                    ft.AppBar(title=ft.Text("Configurações"), bgcolor=ft.colors.SURFACE_VARIANT),
+                    ft.AppBar(title=ft.Text("Configuções", color=colors.BLUE_50), bgcolor=ft.colors.BLUE_700),
                     ft.Row(
                             [
                             rail3,
@@ -439,4 +435,4 @@ def main(page: ft.Page):
     page.on_view_pop = view_pop
     page.go(page.route)
 
-ft.app(target=main, view=ft.AppView.WEB_BROWSER)
+ft.app(target=main)

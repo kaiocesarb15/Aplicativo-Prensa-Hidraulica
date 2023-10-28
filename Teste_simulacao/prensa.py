@@ -4,7 +4,7 @@ from flet import colors
 def main(page: ft.Page):
     page.window_width = 500
     page.window_height = 800
-    page.title = 'Prensa hidráulica'
+    page.title = 'APHID (Aplicação Prensa Hidráulica)'
     page.window_always_on_top = True
 
     textcolor = colors.BLACK
