@@ -135,7 +135,7 @@ def main(page: ft.Page):
         # extended=True,
         min_width=100,
         min_extended_width=400,
-        leading=ft.FloatingActionButton(icon=ft.icons.CREATE, text="Add"),
+        #leading=ft.FloatingActionButton(icon=ft.icons.CREATE, text="Add"),
         group_alignment=-0.9,
         destinations=[
             ft.NavigationRailDestination(
@@ -161,7 +161,7 @@ def main(page: ft.Page):
         # extended=True,
         min_width=100,
         min_extended_width=400,
-        leading=ft.FloatingActionButton(icon=ft.icons.CREATE, text="Add"),
+        #leading=ft.FloatingActionButton(icon=ft.icons.CREATE, text="Add"),
         group_alignment=-0.9,
         destinations=[
             ft.NavigationRailDestination(
@@ -187,7 +187,7 @@ def main(page: ft.Page):
         # extended=True,
         min_width=100,
         min_extended_width=400,
-        leading=ft.FloatingActionButton(icon=ft.icons.CREATE, text="Add"),
+        #leading=ft.FloatingActionButton(icon=ft.icons.CREATE, text="Add"),
         group_alignment=-0.9,
         destinations=[
             ft.NavigationRailDestination(
@@ -211,8 +211,8 @@ def main(page: ft.Page):
         width=150, 
         height=50, 
         bgcolor="blue", 
-        top=100,                       #altura em que o objeto surge em relação ao topo da tela
-        left=150,
+        top=150,                       #altura em que o objeto surge em relação ao topo da tela
+        left=160,
         alignment=ft.alignment.center,
         animate_position=1000
     )
@@ -223,6 +223,8 @@ def main(page: ft.Page):
         width=200,                      #largura da coluna (é o que varia)
         height=150,                     #altura da coluna
         bgcolor="blue",                 #cor do objeto
+        left=10,
+        top=50,
         alignment=ft.alignment.center,
         animate_position=1000           #não sei
     )
@@ -233,7 +235,8 @@ def main(page: ft.Page):
         width=50, 
         height=150, 
         bgcolor="blue", 
-        left=275, 
+        left=285, 
+        top=50,
         alignment=ft.alignment.center,
         animate_position=1000
     )
@@ -243,6 +246,8 @@ def main(page: ft.Page):
         width=200,                      #largura da coluna (é o que varia)
         height=30,                     #altura da coluna
         bgcolor="red",                 #cor do objeto
+        left=10,
+        top=50,
         alignment=ft.alignment.center,
         animate_position=1000           #não sei
     )
@@ -253,9 +258,26 @@ def main(page: ft.Page):
         width=50, 
         height=30, 
         bgcolor="red", 
-        left=275, 
+        left=285, 
+        top=50,
         alignment=ft.alignment.center,
         animate_position=1000
+    )
+        
+    img = ft.Image(
+        src=f"seta_p_baixo.png",
+        width=50,
+        height=50,
+        left=85,
+        fit=ft.ImageFit.CONTAIN,
+    )
+
+    img2 = ft.Image(
+        src=f"seta_p_baixo.png",
+        width=50,
+        height=50,
+        left=285,
+        fit=ft.ImageFit.CONTAIN,
     )
 
     def route_change(route):
@@ -264,7 +286,7 @@ def main(page: ft.Page):
             ft.View(
                 "/",
                 [   
-                    ft.AppBar(title=ft.Text("Flet app"), bgcolor=ft.colors.SURFACE_VARIANT),
+                    ft.AppBar(title=ft.Text("Início"), bgcolor=ft.colors.SURFACE_VARIANT),
                     ft.Row(
                             [
                             rail,
@@ -280,34 +302,32 @@ def main(page: ft.Page):
                 ft.View(
                     "/store",
                     [
-                        ft.AppBar(title=ft.Text("Store"), bgcolor=ft.colors.SURFACE_VARIANT),
-                        ft.Row(
-                            [
-                                rail2,
-                                ft.VerticalDivider(width=1),
-                                ft.Column([
-                                    # Container que contém o título do programa
-                                    ft.Container(ft.Text(" Aplicação Prensa hidráulica/ Problemas", color=colors.BLUE_50), bgcolor=colors.BLUE_900, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1200, height=25),
-                                    # Linha que contém a seleção da variável que o usuário deseja calcular
-                                    variavel_dropdown,
-                                    #Linha que contem o botão que adiciona a variável que o usuário deseja calcular
-                                    addVariavel_bt,
-                                    # Container que cria linha azul, só estético
-                                    ft.Container(bgcolor=colors.BLUE_900, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1200, height=5),
-                                    # Linha que contém os campos de texto para o usuário digitar os valores
-                                    ft.Row([a1, a2, f1, f2], width=1200),
-                                    # Linha que contém o botão que calcula a variável que o usuário deseja calcular
-                                    addValores_bt,
-                                    # Container que cria linha azul, só estético
-                                    ft.Container(bgcolor=colors.BLUE_900, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1200, height=5),
-                                    # Container que contém a resolução do problema
-                                    ft.Container(display, bgcolor=colors.BLUE_50, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5)),
-                                    ft.Column([ ft.Stack([emb1, emb2, cano, peso1, peso2], height=170)], 
-                                        alignment=ft.MainAxisAlignment.START, 
-                                        expand=True)
-                                    ])
-                            ], expand=True),
-                    ],
+                        ft.AppBar(title=ft.Text("Prensa"), bgcolor=ft.colors.SURFACE_VARIANT),
+                        ft.Row(controls=[
+                            rail2,
+                            ft.VerticalDivider(width=1),
+                            ft.Column(controls=[
+                                # Container que contém o título do programa
+                                ft.Container(ft.Text(" Aplicação Prensa hidráulica/ Problemas", color=colors.BLUE_50), bgcolor=colors.BLUE_900, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1200, height=25),
+                                # Linha que contém a seleção da variável que o usuário deseja calcular
+                                variavel_dropdown,
+                                #Linha que contem o botão que adiciona a variável que o usuário deseja calcular
+                                addVariavel_bt,
+                                # Container que cria linha azul, só estético
+                                ft.Container(bgcolor=colors.BLUE_900, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1200, height=5),
+                                # Linha que contém os campos de texto para o usuário digitar os valores
+                                ft.Row([a1, a2, f1, f2], width=1200),
+                                # Linha que contém o botão que calcula a variável que o usuário deseja calcular
+                                addValores_bt,
+                                # Container que cria linha azul, só estético
+                                ft.Container(bgcolor=colors.BLUE_900, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1200, height=5),
+                                # Container que contém a resolução do problema
+                                ft.Container(display, bgcolor=colors.BLUE_50, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5)),
+                                #cria a imagem do êmbolo
+                                ft.Column([ft.Stack([emb1, emb2, cano, peso1, peso2, img, img2], height=220)], alignment=ft.MainAxisAlignment.START, expand=True,)
+                                ], scroll=ft.ScrollMode.ALWAYS), 
+                        ], expand=True),
+                    ], 
                 )
             )
         elif page.route == "/settings":
@@ -315,7 +335,7 @@ def main(page: ft.Page):
             ft.View(
                 "/settings",
                 [   
-                    ft.AppBar(title=ft.Text("Settings"), bgcolor=ft.colors.SURFACE_VARIANT),
+                    ft.AppBar(title=ft.Text("Configurações"), bgcolor=ft.colors.SURFACE_VARIANT),
                     ft.Row(
                             [
                             rail3,
