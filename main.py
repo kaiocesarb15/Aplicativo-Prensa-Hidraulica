@@ -36,6 +36,10 @@ def main(page: ft.Page):
     f2 = ft.TextField(label="Força no êmbolo 2", width=290)
     display = ft.Column()
 
+    texto_inicial = "O APHID é uma aplicação virtual pensada e desenvolvida para a resolução de questões genéricas de prensa hidráulica, utilizando os conceitos do teorema de Pascal. Com o APHID, você tem a capacidade de escolher qual variável deseja determinar com base nos dados da sua questão, proporcionando uma solução personalizada e precisa, além de uma melhor visualização dos resultados."
+    texto_simulação = "- Se você deseja simular alguma questão, clique em 'Simulação' no menu lateral esquerdo e divirta-se."
+    texto_configurações = "- Se você deseja mudar o tema ou conferir as configurações do programa, clique em 'Configurações' no menu lateral esquerdo."
+
     a1.disabled = True
     a2.disabled = True
     f1.disabled = True
@@ -349,8 +353,14 @@ def main(page: ft.Page):
 
     img3 = ft.Image(
         src=f"imagens/logo_APHID.png",
-        #width=500,
-        #height=500,
+        width=300,
+        height=300,
+        fit=ft.ImageFit.CONTAIN,
+    )
+
+    img4 = ft.Image(
+        src=f"imagens/questaoReferencia.jpg",
+        width=500,
         fit=ft.ImageFit.CONTAIN,
     )
 
@@ -361,14 +371,18 @@ def main(page: ft.Page):
                 "/",
                 [   
                     ft.AppBar(title=ft.Text("Início", color=colors.BLUE_50), bgcolor=ft.colors.BLUE_700),
-                    ft.Row(
-                            [
-                            rail,
-                            ft.VerticalDivider(width=1),
-                            ft.Row([img3], alignment=ft.MainAxisAlignment.CENTER, expand=True)
-                            ],
-                            expand=True,
-                        ),
+                    ft.Row(controls=[
+                        rail,
+                        ft.VerticalDivider(width=1),
+                        ft.Column(controls=[
+                            ft.Row([img3], alignment=ft.MainAxisAlignment.CENTER),
+                            ft.Container(ft.Text(" Bem vido ao APHID!", color=ft.colors.BLUE_50) ,bgcolor=colors.BLUE_700, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1300, height=25),
+                            ft.Text(texto_inicial),
+                            ft.Text(texto_simulação),
+                            ft.Text(texto_configurações),
+                            ft.Container(ft.Text(" Criadores: Kaio César de Oliveira Barreto | Matheus Felipe de Lima dos Santos", color=ft.colors.BLUE_50) ,bgcolor=colors.BLUE_700, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1300, height=25),
+                            ], alignment=ft.MainAxisAlignment.CENTER, expand=True)
+                    ], expand=True),
                 ],
             )
         )
@@ -406,7 +420,7 @@ def main(page: ft.Page):
             ft.View(
                 "/configurações",
                 [   
-                    ft.AppBar(title=ft.Text("Configuções", color=colors.BLUE_50), bgcolor=ft.colors.BLUE_700),
+                    ft.AppBar(title=ft.Text("Configurações", color=colors.BLUE_50), bgcolor=ft.colors.BLUE_700),
                     ft.Row(
                             [
                             rail3,
@@ -414,9 +428,13 @@ def main(page: ft.Page):
                             ft.Column([
                                 # Linha que contém o tema do programa
                                 ft.Row([theme], alignment=ft.MainAxisAlignment.CENTER),
+                                ft.Container(ft.Text(" Configurações do APHID:", color=ft.colors.BLUE_50) ,bgcolor=colors.BLUE_700, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1300, height=25),
+                                ft.Text("- Desenvolvido em Python 3.10.8\n- Interface gráfica desenvolvida com a biblioteca Flet 0.10.3\n- Aplicação armazenada em https://github.com/kaiocesarb15/Aplicativo-Prensa-Hidraulica\n- Questão de referência retirada do livro: Mecânica dos fluídos (2°-edição). Franco Brunetti"),
+                                ft.Row([img4]),
+                                ft.Text("- Para mais informações, consulte o relatório do projeto em https://github.com/kaiocesarb15/Aplicativo-Prensa-Hidraulica/relatorio.pdf"),
+                                ft.Container(ft.Text(" Qualquer dúvida ou sugestão, por favor entre em contato com os desenvolvedores através dos e-mails: kaio.barreto@academico.ufpb.br | matheus.felipe@academico.ufpb.br", color=ft.colors.BLUE_50) ,bgcolor=colors.BLUE_700, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1300, height=25),
                                 ], 
-                                alignment=ft.MainAxisAlignment.START, 
-                                expand=True)
+                                alignment=ft.MainAxisAlignment.START, expand=True)
                             ],
                             expand=True,
                         ),
