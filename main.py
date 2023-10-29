@@ -75,101 +75,119 @@ def main(page: ft.Page):
 
         page.update()
 
+    def redimensionaOutrosObj():
+        emb1.left = emb2.width + 85
+        peso1.width = emb2.width
+        cano.width = emb2.width + 75
+        peso2.left = emb1.left
+        peso2.width = emb1.width
+        img2.left = emb1.left + (emb1.width/2) - 25
+        img.left = (emb2.width/2) - 15
+
     def redimensionar(a):
-        ajusteImg2 = 0
         if a == "a2":
             emb1.width = 50
             emb2.width = emb1.width * float(f2.value) / float(f1.value)
-            emb1.left = emb2.width + 85
             if (emb2.width + 232 >= 1200):
                 emb1.width = 18
                 emb2.width = 1000
-                emb1.left = emb2.width + 85
-                ajusteImg2 = - 15
             elif emb2.width < 18:
                 emb2.width = 18
                 emb1.width = 1000
             else:
                 emb1.width = 50
                 emb2.width = emb1.width * float(f2.value) / float(f1.value)
-                emb1.left = emb2.width + 85
         else:
             emb2.width = 200
             emb1.width = emb2.width * float(f1.value) / float(f2.value)
-            if (emb2.width + 182 + emb1.width >= 1200):
+            if (382 + emb1.width >= 1200):
                 emb2.width = 18
                 emb1.width = 1000
-                emb1.left = emb2.width + 85
-                ajusteImg2 = 475
             elif emb1.width < 18:
                 emb1.width = 18
                 emb2.width = 1000
-                emb1.left = 1070
-                ajusteImg2 = -15
-            else:
-                emb2.width = 50
-                emb1.width = emb2.width * float(f1.value) / float(f2.value)
-                emb1.left = emb2.width + 85
-        peso1.width = emb2.width
-        cano.width = emb2.width + 75
-        peso2.left = emb1.left
-        peso2.width = emb1.width
-        img2.left = emb1.left + (emb1.width/2) - 25
-        img.left = (emb2.width/2)- 15
+        redimensionaOutrosObj()
 
     def proporcaoInicial():
         emb2.width = 200
-        emb1.left = 285
         emb1.width = emb2.width * float(a1.value) / float(a2.value)
-        #ajusteImg2 = 0
         if(emb1.width < 18):
             emb1.width = 18
             emb2.width = emb1.width * float(a2.value) / float(a1.value)
             if(emb2.width > 1000):
                 emb2.width = 1000
-                #ajusteImg2 = -15
         elif emb1.width > 1000:
             emb1.width = 1000
-            #ajusteImg2 = 475
             emb2.width = emb1.width * float(a2.value) / float(a1.value)
             if(emb2.width < 18):
                 emb2.width = 18
-        emb1.left = emb2.width + 75
-        peso2.left = emb1.left
-        peso1.width = emb2.width
-        peso2.width = emb1.width
-        cano.width = emb2.width+75
-        img2.left = emb1.left + (emb1.width/2) - 25
-        img.left = (emb2.width/2)- 15
+        redimensionaOutrosObj()
 
     # Função que calcula a variável que o usuário deseja calcular e exibe a resolução
     # Tentei fazer de tudo para deixar o código menos repetitivo, mas esse foi o único jeito que funcionou
     def calcular(e):
         display.controls.clear()
-        dados = f" * Dados da questão: Área do êmbolo 1: {a1.value}(cm²), Área do êmbolo 2: {a2.value}(cm²), Força do êmbolo 1: {f1.value}(N), Força do êmbolo 2: {f2.value}(N).\n\n * Método de resolução: Formula do teorema de pascal: F1/a1 = F2/a2."
+        dados = f""" * Dados da questão:
+        \n               Área do êmbolo 1: {a1.value}(cm²);
+        \n               Área do êmbolo 2: {a2.value}(cm²);
+        \n               Força do êmbolo 1: {f1.value}(N);
+        \n               Força do êmbolo 2: {f2.value}(N).\n\n * Método de resolução:
+        \n               Fórmula do teorema de Pascal: F1/a1 = F2/a2."""
 
         if a1.value == "a1":
-            calculo = f" * Resolução: Para descobrir a área do êmbolo 1, basta multiplicar a área do êmbolo 2 pela força do êmbolo 1 e dividir pela força do êmbolo 2. "
-            resposta = (float(a2.value) * float(f1.value)) / float(f2.value)
-            texto = f"{dados}\n\n{calculo}\n     F1/a1 = F2/a2\n     a1*F2 = F1*a2\n     a1 = (F1*a2)/F2\n     a1 = ({f1.value}*{a2.value})/{f2.value}\n     a1 = {resposta}cm²"
-            redimensionar("a1")
+            if((a2.value == "" or a2.value == "a2") or (f1.value == "" or f1.value == "F1") or (f2.value == "" or f2.value == "F2")):
+                texto = "Faltou alguma variável!"
+            else:
+                calculo = f" * Resolução: Para descobrir a área do êmbolo 1, basta multiplicar a área do êmbolo 2 pela força do êmbolo 1 e dividir pela força do êmbolo 2. "
+                resposta = (float(a2.value) * float(f1.value)) / float(f2.value)
+                texto = f"""{dados}\n\n{calculo}
+                \n               F1/a1 = F2/a2;
+                \n               a1*F2 = F1*a2;
+                \n               a1 = (F1*a2)/F2;
+                \n               a1 = ({f1.value}*{a2.value})/{f2.value};
+                \n               a1 = {resposta}cm²"""
+                redimensionar("a1")
 
         elif a2.value == "a2":
-            calculo = f" * Resolução: Para descobrir a área do êmbolo 2, basta multiplicar a área do êmbolo 1 pela força do êmbolo 2 e dividir pela força do êmbolo 1. "
-            resposta = (float(a1.value) * float(f2.value)) / float(f1.value)
-            texto = f"{dados}\n\n{calculo}\n     F1/a1 = F2/a2\n     a2*F1 = F2*a1\n     a2 = (F2*a1)/F1\n     a2 = ({f2.value}*{a1.value})/{f1.value}\n     a2 = {resposta}cm²"
-            redimensionar("a2")
+            if((a1.value == "" or a1.value == "a1") or (f1.value == "" or f1.value == "F1") or (f2.value == "" or f2.value == "F2")):
+                texto = "Faltou alguma variável!"
+            else:
+                calculo = f" * Resolução: Para descobrir a área do êmbolo 2, basta multiplicar a área do êmbolo 1 pela força do êmbolo 2 e dividir pela força do êmbolo 1. "
+                resposta = (float(a1.value) * float(f2.value)) / float(f1.value)
+                texto = f"""{dados}\n\n{calculo}
+                \n               F1/a1 = F2/a2;
+                \n               a2*F1 = F2*a1;
+                \n               a2 = (F2*a1)/F1;
+                \n               a2 = ({f2.value}*{a1.value})/{f1.value};
+                \n               a2 = {resposta}cm²"""
+                redimensionar("a2")
 
         elif f1.value == "F1":
-            calculo = f" * Resolução: Para descobrir a força no êmbolo 1, basta multiplicar a área do êmbolo 1 pela força do êmbolo 2 e dividir pela área do êmbolo 2. "
-            resposta = (float(a1.value) * float(f2.value)) / float(a2.value)
-            texto = f"{dados}\n\n{calculo}\n     F1/a1 = F2/a2\n     F1*a2 = F2*a1\n     F1 = (F2*a1)/a2\n     F1 = ({f2.value}*{a1.value})/{a2.value}\n     F1 = {resposta}N"
-            proporcaoInicial()
+            if((a2.value == "" or a2.value == "a2") or (a1.value == "" or a1.value == "a1") or (f2.value == "" or f2.value == "F2")):
+                texto = "Faltou alguma variável!"
+            else:
+                calculo = f" * Resolução: Para descobrir a força no êmbolo 1, basta multiplicar a área do êmbolo 1 pela força do êmbolo 2 e dividir pela área do êmbolo 2. "
+                resposta = (float(a1.value) * float(f2.value)) / float(a2.value)
+                texto = f"""{dados}\n\n{calculo}
+                \n               F1/a1 = F2/a2;
+                \n               F1*a2 = F2*a1;
+                \n               F1 = (F2*a1)/a2;
+                \n               F1 = ({f2.value}*{a1.value})/{a2.value};
+                \n               F1 = {resposta}N"""
+                proporcaoInicial()
         else:
-            calculo = f" * Resolução: Para descobrir a força no êmbolo 2, basta multiplicar a área do êmbolo 2 pela força do êmbolo 1 e dividir pela área do êmbolo 1. "
-            resposta = (float(a2.value) * float(f1.value)) / float(a1.value)
-            texto = f"{dados}\n\n{calculo}\n     F1/a1 = F2/a2\n     F2*a1 = F1*a2\n     F2 = (F1*a2)/a1\n     F2 = ({f1.value}*{a2.value})/{a1.value}\n     F2 = {resposta}N"
-            proporcaoInicial()
+            if((a2.value == "" or a2.value == "a2") or (f1.value == "" or f1.value == "F1") or (a1.value == "" or a1.value == "a1")):
+                texto = "Faltou alguma variável!"
+            else:
+                calculo = f" * Resolução: Para descobrir a força no êmbolo 2, basta multiplicar a área do êmbolo 2 pela força do êmbolo 1 e dividir pela área do êmbolo 1. "
+                resposta = (float(a2.value) * float(f1.value)) / float(a1.value)
+                texto = f"""{dados}\n\n{calculo}
+                \n               F1/a1 = F2/a2;
+                \n               F2*a1 = F1*a2;
+                \n               F2 = (F1*a2)/a1;
+                \n               F2 = ({f1.value}*{a2.value})/{a1.value};
+                \n               F2 = {resposta}N"""
+                proporcaoInicial()
 
         display.controls.append(ft.Text(texto, color=colors.BLACK))
         page.update()
@@ -180,22 +198,13 @@ def main(page: ft.Page):
 
     #função que muda a tela 
     def mudaTela(e):
-        #"/" é a tela inicial, "/store" é a tela da aplicação
-        if page.route == "/":
-            if e.control.selected_index == 1:
-                page.go("/simulação")
-            elif e.control.selected_index == 2:
-                page.go("/configurações")
-        elif page.route == "/simulação":
-            if e.control.selected_index == 0:
-                page.go("/")
-            elif e.control.selected_index == 2:
-                page.go("/configurações")
-        elif page.route == "/configurações":
-            if e.control.selected_index == 0:
-                page.go("/")
-            elif e.control.selected_index == 1:
-                page.go("/simulação")
+        #"/" é a tela inicial
+        if e.control.selected_index == 0:
+            page.go("/")
+        elif e.control.selected_index == 1:
+            page.go("/simulação")
+        else:
+            page.go("/configurações")
         rail.selected_index = 0
         rail2.selected_index = 1
         rail3.selected_index = 2
@@ -203,10 +212,8 @@ def main(page: ft.Page):
     rail = ft.NavigationRail(
         selected_index=0,
         label_type=ft.NavigationRailLabelType.ALL,
-        # extended=True,
         min_width=100,
         min_extended_width=400,
-        #leading=ft.FloatingActionButton(icon=ft.icons.CREATE, text="Add"),
         group_alignment=-0.9,
         destinations=[
             ft.NavigationRailDestination(
@@ -229,10 +236,8 @@ def main(page: ft.Page):
     rail2 = ft.NavigationRail(
         selected_index=1,
         label_type=ft.NavigationRailLabelType.ALL,
-        # extended=True,
         min_width=100,
         min_extended_width=400,
-        #leading=ft.FloatingActionButton(icon=ft.icons.CREATE, text="Add"),
         group_alignment=-0.9,
         destinations=[
             ft.NavigationRailDestination(
@@ -255,10 +260,8 @@ def main(page: ft.Page):
     rail3 = ft.NavigationRail(
         selected_index=2,
         label_type=ft.NavigationRailLabelType.ALL,
-        # extended=True,
         min_width=100,
         min_extended_width=400,
-        #leading=ft.FloatingActionButton(icon=ft.icons.CREATE, text="Add"),
         group_alignment=-0.9,
         destinations=[
             ft.NavigationRailDestination(
@@ -297,7 +300,7 @@ def main(page: ft.Page):
         left=10,
         top=50,
         alignment=ft.alignment.center,
-        animate_position=1000           #não sei
+        animate_position=1000         
     )
 
     #cria a coluna da direita
@@ -320,7 +323,7 @@ def main(page: ft.Page):
         left=10,
         top=50,
         alignment=ft.alignment.center,
-        animate_position=1000           #não sei
+        animate_position=1000          
     )
 
     #cria a coluna da direita
@@ -432,7 +435,7 @@ def main(page: ft.Page):
                                 ft.Text("- Desenvolvido em Python 3.10.8\n- Interface gráfica desenvolvida com a biblioteca Flet 0.10.3\n- Aplicação armazenada em https://github.com/kaiocesarb15/Aplicativo-Prensa-Hidraulica\n- Questão de referência retirada do livro: Mecânica dos fluídos (2°-edição). Franco Brunetti"),
                                 ft.Row([img4]),
                                 ft.Text("- Para mais informações, consulte o relatório do projeto em https://github.com/kaiocesarb15/Aplicativo-Prensa-Hidraulica/relatorio.pdf"),
-                                ft.Container(ft.Text(" Qualquer dúvida ou sugestão, por favor entre em contato com os desenvolvedores através dos e-mails: kaio.barreto@academico.ufpb.br | matheus.felipe@academico.ufpb.br", color=ft.colors.BLUE_50) ,bgcolor=colors.BLUE_700, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1300, height=25),
+                                ft.Container(ft.Text(" Qualquer dúvida ou sugestão, por favor entre em contato com os desenvolvedores através dos e-mails: kaio.barreto@academico.ufpb.br | mfls@academico.ufpb.br", color=ft.colors.BLUE_50) ,bgcolor=colors.BLUE_700, border=ft.border.all(1, colors.BLUE_100), border_radius=ft.border_radius.all(5), width=1300, height=25),
                                 ], 
                                 alignment=ft.MainAxisAlignment.START, expand=True)
                             ],
